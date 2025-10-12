@@ -1,0 +1,49 @@
+https://youtu.be/TqV4DarZejM
+https://youtu.be/H2219W9kk_w?si=hLTCYRO7ZKRW5A2s
+
+let Pantalla = 0;
+let texto = [];
+let MiArreglo;
+let miImagen = [];
+let tam = 80;
+let pantallaActual;
+let pantallaProx;
+let posY = 420;
+let posX = 550;
+let posXD = 400;
+let posYD = 350;
+let posYD2 = 350;
+let posXD2 = 100;
+let posYR = 20; //reinicio
+let posXR = 550; //reinicio
+let flecha;
+let miSonido;
+let FinalMalo;
+let FinalBueno;
+let reinicio;
+let textoBoton1;
+let textoBoton2;
+function preload () {
+  for (let i =0; i <16; i++) {
+    miImagen [i]= loadImage("data/pantalla"+i+".jpeg");
+    texto [i]= loadStrings("data/texto"+i+".txt");
+  }
+  FinalMalo= loadSound("data/no-luck-too-bad-disappointing-sound-effect-112943.mp3");
+  FinalBueno= loadSound("data/piglevelwin2mp3-14800.mp3");
+  flecha= loadImage("data/flecha.png");
+  reinicio= loadImage("data/reiniciar.png");
+  boton = loadImage("data/boton.png");
+}
+
+function setup() {
+  createCanvas(640, 480);
+  background (200);
+   
+}
+
+
+function draw(){
+  dibujarPantalla(Pantalla);
+  dibujarBotones();
+ 
+}
