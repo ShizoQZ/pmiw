@@ -13,10 +13,8 @@ class ObstaculosMoviendose{
   }
   
   dibujar () {
-    fill (this.Color);
-    rect (this.posX, this.posY, 50, 30);
+    image(imgCiervos, this.posX, this.posY, 50, 50);
     this.posX= this.posX + this.Velocidad;
-    //reciclar autos
   }
   
   MoverX (){

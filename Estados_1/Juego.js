@@ -1,6 +1,7 @@
 class Juego {
   constructor() {
     this.estado = 0;
+    this.victoria = false;
     this.Jugador = new Jugador();
     this.ObstaculosQuietos;
     this.ObstaculosMoviendose = [];
@@ -23,6 +24,7 @@ class Juego {
     this.Jugador = new Jugador();
     this.ObstaculosMoviendose = [];
     this.estado = 1; // Volver al juego
+    this.victoria = false;  // ← AGREGAR ESTA LÍNEA
     this.iniciar(); // Recrear obstáculos
   }
 
@@ -38,7 +40,13 @@ class Juego {
     this.dibujarVidas();
     this.dibujarObstaculosMoviendose();
     this.Jugador.dibujar();
-    this.controlColision();
+
+    // ← AGREGAR ESTE BLOQUE (actualiza victoria dinámicamente cada frame)
+    this.victoria = (this.Jugador.Cerdito.posX >= 150 &&
+      this.Jugador.Cerdito.posX <= 210 &&
+      this.Jugador.Cerdito.posY <= 50);
+
+    this.controlColision();  // Ahora solo colisiona si !victoria
     this.PantallaDerrota();
     this.PantallaVictoria();
   }
@@ -61,9 +69,11 @@ class Juego {
   }
 
   controlColision() {
+    if (this.victoria) return;
+
     for (let i = 0; i < this.CantidadObstaculosMoviendose; i++) {
       if (dist(this.ObstaculosMoviendose[i].posX, this.ObstaculosMoviendose[i].posY,
-               this.Jugador.Cerdito.posX, this.Jugador.Cerdito.posY) < 20) {
+        this.Jugador.Cerdito.posX, this.Jugador.Cerdito.posY) < 50) {
         this.Jugador.QuitarVida();
         if (this.Jugador.Vidas > 0) {
           this.Jugador.iniciarCerdito();
@@ -80,8 +90,14 @@ class Juego {
 
   PantallaVictoria() {
     if (this.Jugador.Cerdito.posX >= 150 && this.Jugador.Cerdito.posX <= 210 &&
-        this.Jugador.Cerdito.posY <= 50) {
+      this.Jugador.Cerdito.posY <= 50) {
       this.pantallas.PantallaVictoria();
+    }
+  }
+
+  sonidos() {
+    if (pantallaDerrota) {
+      sonidoDerrota.play();
     }
   }
 
@@ -93,21 +109,20 @@ class Juego {
         this.estado = 1;
         this.iniciar();
       }
-      return;
     }
 
-    // En juego: verificar victoria antes de mover
+    // Tecla R para reiniciar (DESDE CUALQUIER PANTALLA DE FIN - PRIORIDAD ALTA)
+    if (key === 'r') {
+      this.reiniciar();
+    }
+
+    // En juego: verificar victoria antes de mover (solo si NO es reinicio)
     let ganar = (this.Jugador.Cerdito.posX >= 150 &&
-                this.Jugador.Cerdito.posX <= 210 &&
-                this.Jugador.Cerdito.posY <= 50);
+      this.Jugador.Cerdito.posX <= 210 &&
+      this.Jugador.Cerdito.posY <= 50);
 
     if (!ganar) {
       this.Jugador.teclaPresionada();
-    }
-
-    // Tecla R para reiniciar (desde cualquier pantalla de fin)
-    if (key === 'r') {
-      this.reiniciar();
     }
   }
 }

@@ -11,8 +11,7 @@ class Cerdito {
     this.posY = 450;
   }
   dibujar () {
-    fill (this.Color);
-    rect (this.posX, this.posY, 30, 30);
+    image(imgCerdito, this.posX, this.posY, 30, 30);
   }
 
 

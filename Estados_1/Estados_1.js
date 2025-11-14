@@ -1,9 +1,26 @@
 let juego;
+let imgCerdito;
+let imgCiervos;
+let imgCasa;
+let sonidoVictoria;
+let sonidoDerrota;
+let sonidoPerderVida
+
+function preload(){
+sonidoVictoria = loadSound('data/Victoria.mp3');
+sonidoPerderVida = loadSound('data/Vida.mp3');
+sonidoDerrota = loadSound('data/Derrota.mp3');
+  
+  
+imgCerdito = loadImage('data/cerdito.png');
+imgCiervos = loadImage('data/ciervos.png');
+imgCasa = loadImage('data/casa.png');
+}
 
 function setup() {
   createCanvas(640, 480);
   juego = new Juego();
-  juego.iniciar(); // Inicializa en estado 0 (pantalla inicio)
+  juego.iniciar();
 }
 
 function draw() {

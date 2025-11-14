@@ -17,7 +17,6 @@ class Pista{
     rect(0, 50, width, 400);
   }
   Destino() {
-    fill(0,255,0);
-    rect(150, 0, 60, 50);
+    image(imgCasa, 150, 0, 60, 50);
   }
 }
